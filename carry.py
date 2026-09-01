@@ -1,51 +1,35 @@
 import streamlit as st
-import requests
 
 # 페이지 기본 설정
 st.set_page_config(page_title="원딜 위키", page_icon="🎯", layout="centered")
 
-# 챔피언 한글명 -> 라이엇 내부 ID 매핑 (Data Dragon 초상화용)
-CHAMPION_ID_MAP = {
-    "드레이븐": "Draven",
-    "미스 포츈": "MissFortune",
-    "이즈리얼": "Ezreal",
-    "카이사": "Kaisa",
-    "아펠리오스": "Aphelios",
-    "자야": "Xayah",
-    "코르키": "Corki",
-    "케이틀린": "Caitlyn",
-    "루시안": "Lucian",
-    "칼리스타": "Kalista",
-    "애쉬": "Ashe",
-    "코그모": "KogMaw",
-    "진": "Jhin",
-    "제리": "Zeri",
-    "징크스": "Jinx",
-    "바루스": "Varus",
-    "시비르": "Sivir",
-    # "유나라"는 정확히 매칭되는 챔피언 이름을 확인하지 못해 일단 제외했어요.
-    # 실제 챔피언명(예: 다른 이름)을 알려주면 매핑 추가해드릴게요.
+# 챔피언 한글명 -> 초상화 URL (라이엇 공식 CDN, 버전 16.17.1로 고정해서 하드코딩)
+# 실행 중에 별도로 API를 호출하지 않으니 requests 설치도 필요 없음
+CHAMPION_IMAGE_MAP = {
+    "드레이븐": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Draven.png",
+    "미스 포츈": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/MissFortune.png",
+    "이즈리얼": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Ezreal.png",
+    "카이사": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Kaisa.png",
+    "아펠리오스": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Aphelios.png",
+    "자야": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Xayah.png",
+    "코르키": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Corki.png",
+    "케이틀린": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Caitlyn.png",
+    "루시안": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Lucian.png",
+    "칼리스타": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Kalista.png",
+    "애쉬": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Ashe.png",
+    "코그모": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/KogMaw.png",
+    "진": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Jhin.png",
+    "제리": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Zeri.png",
+    "징크스": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Jinx.png",
+    "바루스": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Varus.png",
+    "시비르": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Sivir.png",
+    # "유나라"는 정확히 매칭되는 챔피언을 확인 못해 일단 제외했어요.
+    # 실제 챔피언명을 알려주면 바로 추가해드릴게요.
 }
 
 
-@st.cache_data
-def get_ddragon_version():
-    """Data Dragon 최신 버전을 가져옴 (실패 시 고정 버전으로 대체)"""
-    try:
-        res = requests.get(
-            "https://ddragon.leagueoflegends.com/api/versions.json", timeout=3
-        )
-        return res.json()[0]
-    except Exception:
-        return "14.20.1"
-
-
 def get_champion_image_url(champ_name):
-    champ_id = CHAMPION_ID_MAP.get(champ_name)
-    if not champ_id:
-        return None
-    version = get_ddragon_version()
-    return f"https://ddragon.leagueoflegends.com/cdn/{version}/img/champion/{champ_id}.png"
+    return CHAMPION_IMAGE_MAP.get(champ_name)
 
 
 # 세션 상태 초기화
