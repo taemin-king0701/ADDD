@@ -3,26 +3,25 @@ import streamlit as st
 # 페이지 기본 설정
 st.set_page_config(page_title="원딜 위키", page_icon="🎯", layout="centered")
 
-# 챔피언 한글명 -> 초상화 URL (라이엇 공식 CDN, 버전 16.17.1로 고정해서 하드코딩)
-# 실행 중에 별도로 API를 호출하지 않으니 requests 설치도 필요 없음
+# 챔피언 한글명 -> 초상화 URL (Community Dragon CDN, "latest" 경로라 버전 관리 불필요)
 CHAMPION_IMAGE_MAP = {
-    "드레이븐": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Draven.png",
-    "미스 포츈": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/MissFortune.png",
-    "이즈리얼": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Ezreal.png",
-    "카이사": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Kaisa.png",
-    "아펠리오스": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Aphelios.png",
-    "자야": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Xayah.png",
-    "코르키": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Corki.png",
-    "케이틀린": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Caitlyn.png",
-    "루시안": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Lucian.png",
-    "칼리스타": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Kalista.png",
-    "애쉬": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Ashe.png",
-    "코그모": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/KogMaw.png",
-    "진": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Jhin.png",
-    "제리": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Zeri.png",
-    "징크스": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Jinx.png",
-    "바루스": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Varus.png",
-    "시비르": "https://ddragon.leagueoflegends.com/cdn/16.17.1/img/champion/Sivir.png",
+    "드레이븐": "https://cdn.communitydragon.org/latest/champion/Draven/square",
+    "미스 포츈": "https://cdn.communitydragon.org/latest/champion/MissFortune/square",
+    "이즈리얼": "https://cdn.communitydragon.org/latest/champion/Ezreal/square",
+    "카이사": "https://cdn.communitydragon.org/latest/champion/Kaisa/square",
+    "아펠리오스": "https://cdn.communitydragon.org/latest/champion/Aphelios/square",
+    "자야": "https://cdn.communitydragon.org/latest/champion/Xayah/square",
+    "코르키": "https://cdn.communitydragon.org/latest/champion/Corki/square",
+    "케이틀린": "https://cdn.communitydragon.org/latest/champion/Caitlyn/square",
+    "루시안": "https://cdn.communitydragon.org/latest/champion/Lucian/square",
+    "칼리스타": "https://cdn.communitydragon.org/latest/champion/Kalista/square",
+    "애쉬": "https://cdn.communitydragon.org/latest/champion/Ashe/square",
+    "코그모": "https://cdn.communitydragon.org/latest/champion/KogMaw/square",
+    "진": "https://cdn.communitydragon.org/latest/champion/Jhin/square",
+    "제리": "https://cdn.communitydragon.org/latest/champion/Zeri/square",
+    "징크스": "https://cdn.communitydragon.org/latest/champion/Jinx/square",
+    "바루스": "https://cdn.communitydragon.org/latest/champion/Varus/square",
+    "시비르": "https://cdn.communitydragon.org/latest/champion/Sivir/square",
     # "유나라"는 정확히 매칭되는 챔피언을 확인 못해 일단 제외했어요.
     # 실제 챔피언명을 알려주면 바로 추가해드릴게요.
 }
