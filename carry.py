@@ -161,7 +161,27 @@ CHAMPION_SKILLS = {
         "E": ("마법의 방패", "짧은 시간 마법 피해를 막아내는 방패를 둘러요."),
         "R": ("사냥 개시", "자신과 주변 아군의 이동 속도를 크게 늘려줘요."),
     },
+    "아펠리오스": {
+        "Q": ("무기 스킬", "지금 들고 있는 주 무기에 따라 완전히 다른 효과가 나가요. 무기 다섯 종류마다 각자 다른 Q를 갖고 있어요."),
+        "W": ("위상 변화", "무기의 탄약을 다 썼을 때 다음에 등장할 무기를 미리 선택해둘 수 있어요."),
+        "E": ("무기 교체 시스템", "지금 들고 있는 주 무기와 보조 무기의 자리를 서로 바꿔요."),
+        "R": ("월광포화", "주 무기와 보조 무기 두 가지의 효과를 한 번에 발동하는 궁극기예요."),
+    },
 }
+
+# 아펠리오스 전용: 5가지 무기 (지정해주신 순서 그대로)
+# 각 무기의 Q 아이콘은 Data Dragon의 무기별 스킬 아이콘 파일명을 그대로 사용
+APHELIOS_WEAPONS = [
+    ("Severum", "절단검", "낫 모양의 쌍권총. 빠르게 파고들며 주 무기와 보조 무기로 주위 적을 함께 공격하고, 생명력을 흡수해요."),
+    ("Calibrum", "만월총", "사거리가 가장 긴 저격 소총. 적중한 대상에게 표식을 남기고, 표식을 소모해 추가 사격을 가할 수 있어요."),
+    ("Gravitum", "중력포", "대포. 이미 둔화 상태인 적을 그 자리에 묶어버려요."),
+    ("Infernum", "화염포", "화염 방사기. 원뿔 범위에 불길을 내뿜은 뒤, 보조 무기로 이어서 공격해요."),
+    ("Crescendum", "반월검", "던지는 무기. 보조 무기와 같은 무기를 사용하는 파수탑을 소환해요."),
+]
+
+
+def get_aphelios_weapon_icon_url(weapon_id):
+    return f"https://ddragon.leagueoflegends.com/cdn/16.17.1/img/spell/Aphelios{weapon_id}Q.png"
 
 # 챔피언별 특징 & 공략 (직접 작성해주신 내용)
 CHAMPION_GUIDES = {
@@ -308,7 +328,16 @@ elif st.session_state.page == "detail":
     st.write("---")
     st.subheader("특징 & 공략")
     guide = CHAMPION_GUIDES.get(champ)
-    if guide:
+    if champ == "아펠리오스":
+        st.write("아펠리오스는 5가지 무기를 아래 순서로 돌려 씁니다.")
+        for weapon_id, weapon_name, weapon_desc in APHELIOS_WEAPONS:
+            w_col1, w_col2 = st.columns([1, 4])
+            with w_col1:
+                st.image(get_aphelios_weapon_icon_url(weapon_id), width=64)
+            with w_col2:
+                st.markdown(f"**{weapon_name}**")
+                st.caption(weapon_desc)
+    elif guide:
         st.markdown(guide)
     else:
         st.write(
